@@ -1,0 +1,7 @@
+services:
+  docplanner_tasks.tasks_repository:
+    class: DocPlanner\TasksBundle\Tasks\TasksRepository
+
+  docplanner_tasks.task_consumer:
+    class: DocPlanner\TasksBundle\Tasks\Consumer\TaskConsumer
+    arguments: ['@docplanner_tasks.tasks_repository', '@event_dispatcher', '@docplanner_tasks.task_deadletter_producer', '@docplanner_tasks.task_bury_producer']

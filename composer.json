@@ -1,0 +1,27 @@
+{
+  "name" : "DocPlanner/TasksBundle",
+  "description" : "Tasks bundle based on RabbitMQ",
+  "type" : "symfony-bundle",
+  "keywords" : [
+    "task",
+    "tasks",
+    "rabbit",
+    "rabbitmq",
+    "job",
+    "jobs",
+    "asynchronous job",
+    "asynchronous jobs"
+  ],
+  "license" : [
+    "MIT"
+  ],
+  "require" : {
+    "php-amqplib/rabbitmq-bundle": "1.12.*"
+  },
+  "autoload" : {
+    "psr-4" : {
+      "DocPlanner\\TasksBundle" : ""
+    }
+  },
+  "target-dir" : "DocPlanner/TasksBundle"
+}

@@ -2,8 +2,6 @@
 
 namespace DocPlanner\TasksBundle\Command;
 
-use DocPlanner\TasksBundle\Test\AsdPayload;
-use OldSound\RabbitMqBundle\RabbitMq\ProducerInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
@@ -28,12 +26,6 @@ class DocplannerTasksRunCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-//    	/** @var ProducerInterface $taskProducer */
-//    	$taskProducer = $this->getContainer()->get('docplanner_tasks.task_producer');
-//
-//    	$taskProducer->publish(new AsdPayload());
-//		die('asd');
-	
 		$command = $this->getApplication()->find('rabbitmq:consumer');
 		
 		$definition = new InputDefinition();

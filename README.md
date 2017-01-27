@@ -1,8 +1,25 @@
 TasksBundle
 ============
 
+## Requirements
+#### RabbitMQ
+`rabbitmq_delayed_message_exchange` plugin enabled
+
+## Installation
+#### Composer
+```
+composer require docplanner/tasks-bundle
+```
+
+#### Add to AppKernel
+```yaml
+	new \OldSound\RabbitMqBundle\OldSoundRabbitMqBundle,
+	new DocPlanner\TasksBundle\DocPlannerTasksBundle,
+```
+
 ## Configuration
 ### Define connection in `OldSoundRabbitMqBundle` configuration
+https://github.com/php-amqplib/RabbitMqBundle
 ```yaml
 old_sound_rabbit_mq:
     connections:
@@ -81,10 +98,26 @@ class SampleTask extends BaseTask
 ```
 
 
-### Produce tasks
-```php
-	/** @var ProducerInterface $taskProducer */
-	$taskProducer = $this->getContainer()->get('docplanner_tasks.task_producer');
+## Produce tasks
 
-	$taskProducer->publish(new SamplePayload());
+### Without delay
+```php
+	$taskProducer = $container->get('docplanner_tasks.task_producer');
+
+	$taskProducer->enqueue(new SamplePayload());
 ```
+
+### With delay
+```php
+	$taskProducer = $container->get('docplanner_tasks.task_producer');
+
+	$dateTime = new \DateTime('now + 2 minutes');
+
+	$taskProducer->enqueue(new SamplePayload(), $dateTime);
+```
+
+## Consume tasks
+```
+bin/console docplanner:tasks:run
+```
+check `--help` for more info

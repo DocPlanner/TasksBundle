@@ -4,4 +4,8 @@ services:
 
   docplanner_tasks.task_consumer:
     class: DocPlanner\TasksBundle\Tasks\Consumer\TaskConsumer
-    arguments: ['@docplanner_tasks.tasks_repository', '@event_dispatcher', '@docplanner_tasks.task_deadletter_producer', '@docplanner_tasks.task_bury_producer']
+    arguments: ['@docplanner_tasks.tasks_repository', '@event_dispatcher', '@docplanner_tasks.internal.task_deadletter_producer', '@docplanner_tasks.internal.task_bury_producer']
+
+  docplanner_tasks.task_producer:
+    class: DocPlanner\TasksBundle\Tasks\TaskProducer
+    arguments: ['@docplanner_tasks.internal.task_producer']

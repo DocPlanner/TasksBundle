@@ -47,8 +47,11 @@ class DocPlannerTasksExtension extends ConfigurableExtension implements PrependE
 				$namesPrefix . 'task'            => [
 					'connection'       => $connectionName,
 					'exchange_options' => [
-						'name' => $namesPrefix . 'task',
-						'type' => 'topic',
+						'name'           => $namesPrefix . 'task',
+						'type'           => 'x-delayed-message',
+						'arguments'		 => [
+							'x-delayed-type' => ['S', 'topic'],
+						],
 					],
 					'queue_options'    => [
 						'name' => $namesPrefix . 'task',
@@ -99,7 +102,7 @@ class DocPlannerTasksExtension extends ConfigurableExtension implements PrependE
 					'connection'       => $connectionName,
 					'exchange_options' => [
 						'name' => $namesPrefix . 'task',
-						'type' => 'topic',
+						'type' => 'x-delayed-message',
 					],
 					'queue_options'    => [
 						'name' => $namesPrefix . 'task',
@@ -120,9 +123,9 @@ class DocPlannerTasksExtension extends ConfigurableExtension implements PrependE
 		
 		$container->prependExtensionConfig('old_sound_rabbit_mq', $asd);
 		
-		$container->setAlias('docplanner_tasks.task_producer', sprintf('old_sound_rabbit_mq.%stask_producer', $namesPrefix));
-		$container->setAlias('docplanner_tasks.task_deadletter_producer', sprintf('old_sound_rabbit_mq.%stask_deadletter_producer', $namesPrefix));
-		$container->setAlias('docplanner_tasks.task_bury_producer', sprintf('old_sound_rabbit_mq.%stask_bury_producer', $namesPrefix));
+		$container->setAlias('docplanner_tasks.internal.task_producer', sprintf('old_sound_rabbit_mq.%stask_producer', $namesPrefix));
+		$container->setAlias('docplanner_tasks.internal.task_deadletter_producer', sprintf('old_sound_rabbit_mq.%stask_deadletter_producer', $namesPrefix));
+		$container->setAlias('docplanner_tasks.internal.task_bury_producer', sprintf('old_sound_rabbit_mq.%stask_bury_producer', $namesPrefix));
 		
 		$container->setParameter('docplanner_tasks.tasks_consumer_name', $namesPrefix . 'task');
 	}

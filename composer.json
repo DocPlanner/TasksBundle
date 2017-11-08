@@ -16,7 +16,7 @@
     "MIT"
   ],
   "require" : {
-    "php-amqplib/rabbitmq-bundle": "1.12.*"
+    "php-amqplib/rabbitmq-bundle": "^1.12"
   },
   "autoload" : {
     "psr-4" : {
